@@ -1,0 +1,7 @@
+﻿  IOCPclient.cpp
+c:\users\tjsvl\desktop\server-study\server\consoleapplication1\iocpclient.cpp(22): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\um\winsock2.h(1830): note: 'inet_addr' 선언을 참조하십시오.
+c:\users\tjsvl\desktop\server-study\server\consoleapplication1\iocpclient.cpp(46): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1272): note: 'scanf' 선언을 참조하십시오.
+  ConsoleApplication2.vcxproj -> C:\Users\tjsvl\Desktop\Server-Study\Server\Debug\ConsoleApplication2.exe
+  ConsoleApplication2.vcxproj -> C:\Users\tjsvl\Desktop\Server-Study\Server\Debug\ConsoleApplication2.pdb (Partial PDB)
