@@ -1,2 +1,9 @@
-﻿  ConsoleApplication1.vcxproj -> C:\Users\tjsvl\Desktop\Server-Study\Server\Debug\ConsoleApplication1.exe
+﻿  IOCPserver.cpp
+c:\users\tjsvl\desktop\server-study\server\consoleapplication1\iocpserver.cpp(42): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tjsvl\desktop\server-study\server\consoleapplication1\iocpserver.cpp(59): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
+c:\users\tjsvl\desktop\server-study\server\consoleapplication1\iocpserver.cpp(113): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\time.h(505): note: 'localtime' 선언을 참조하십시오.
+c:\users\tjsvl\desktop\server-study\server\consoleapplication1\iocpserver.cpp(142): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: 'sprintf' 선언을 참조하십시오.
+  ConsoleApplication1.vcxproj -> C:\Users\tjsvl\Desktop\Server-Study\Server\Debug\ConsoleApplication1.exe
   ConsoleApplication1.vcxproj -> C:\Users\tjsvl\Desktop\Server-Study\Server\Debug\ConsoleApplication1.pdb (Partial PDB)

@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <winsock2.h>
 #include <process.h>
 
 #define BUFSIZE 1024
+
+char* timeToString(struct tm *t);
 
 typedef struct
 {
@@ -25,25 +28,27 @@ void ErrorHandling(char *message);
 
 int main(int argc, char** argv)
 {
+
+
 	WSADATA wsaData;
+	//윈속 2.2 초기화
 	if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
 		ErrorHandling("WSAStartup() error!");
 
 	HANDLE hCompletionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 0);
-
+	//스레드 풀 생성
 	SYSTEM_INFO SystemInfo;
 	GetSystemInfo(&SystemInfo);
 	for (int i = 0; i<SystemInfo.dwNumberOfProcessors; ++i)
 		_beginthreadex(NULL, 0, CompletionThread, (LPVOID)hCompletionPort, 0, NULL);
-
+	//소켓 생성
 	SOCKET hServSock = WSASocket(AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED);
-
+	//소켓 주소 등록
 	SOCKADDR_IN servAddr;
 	servAddr.sin_family = AF_INET;
 	servAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-	//servAddr.sin_port = htons(atoi("2738"));
 	servAddr.sin_port = htons(2738);
-
+	//서버 바인드, 리슨 대기( 5개 까지 ) 
 	bind(hServSock, (SOCKADDR*)&servAddr, sizeof(servAddr));
 	listen(hServSock, 5);
 
@@ -86,6 +91,12 @@ unsigned int __stdcall CompletionThread(LPVOID pComPort)
 	LPPER_IO_DATA PerIoData;
 	DWORD flags;
 
+	//시간 나타낼 변수
+	struct tm *t;
+	time_t timer;
+
+	
+
 	while (1) {
 		GetQueuedCompletionStatus(hCompletionPort, &BytesTransferred, (LPDWORD)&PerHandleData, (LPOVERLAPPED*)&PerIoData, INFINITE);
 
@@ -98,8 +109,11 @@ unsigned int __stdcall CompletionThread(LPVOID pComPort)
 		}
 
 		PerIoData->wsaBuf.buf[BytesTransferred] = '\0';
+		timer = time(NULL);    // 현재 시각을 초 단위로 얻기
+		t = localtime(&timer); // 초 단위의 시간을 분리하여 구조체에 넣기
+		printf("%s", timeToString(t));
 		printf("Recv[%s]\n", PerIoData->wsaBuf.buf);
-
+	
 		PerIoData->wsaBuf.len = BytesTransferred;
 		WSASend(PerHandleData->hClntSock, &(PerIoData->wsaBuf), 1, NULL, 0, NULL, NULL);
 
@@ -122,4 +136,13 @@ void ErrorHandling(char *message)
 	exit(1);
 }
 
+char* timeToString(struct tm *t) {
+	static char s[20];
 
+	sprintf(s, "%04d-%02d-%02d %02d:%02d:%02d",
+		t->tm_year + 1900, t->tm_mon + 1, t->tm_mday,
+		t->tm_hour, t->tm_min, t->tm_sec
+	);
+
+	return s;
+}
