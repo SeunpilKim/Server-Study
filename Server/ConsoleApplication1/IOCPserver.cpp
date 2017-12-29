@@ -47,6 +47,8 @@ int main(int argc, char** argv)
 	SOCKADDR_IN servAddr;
 	servAddr.sin_family = AF_INET;
 	servAddr.sin_addr.s_addr = htonl(INADDR_ANY);
+	//servAddr.sin_addr.s_addr = inet_addr("127.0.0.2");
+
 	servAddr.sin_port = htons(2738);
 	//서버 바인드, 리슨 대기( 5개 까지 ) 
 	bind(hServSock, (SOCKADDR*)&servAddr, sizeof(servAddr));
@@ -111,8 +113,8 @@ unsigned int __stdcall CompletionThread(LPVOID pComPort)
 		PerIoData->wsaBuf.buf[BytesTransferred] = '\0';
 		timer = time(NULL);    // 현재 시각을 초 단위로 얻기
 		t = localtime(&timer); // 초 단위의 시간을 분리하여 구조체에 넣기
-		printf("%s", timeToString(t));
-		printf("Recv[%s]\n", PerIoData->wsaBuf.buf);
+		printf("%s   ", timeToString(t));
+		printf("%s\n", PerIoData->wsaBuf.buf);
 	
 		PerIoData->wsaBuf.len = BytesTransferred;
 		WSASend(PerHandleData->hClntSock, &(PerIoData->wsaBuf), 1, NULL, 0, NULL, NULL);

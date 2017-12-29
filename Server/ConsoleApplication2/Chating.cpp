@@ -34,6 +34,7 @@ int main()
 
 	WSABUF dataBuf;
 	char message[1024] = { 0, };
+	char userInfo[1031] = { "유저1:", };
 	int sendBytes = 0;
 	int recvBytes = 0;
 	int flags = 0;
@@ -42,14 +43,16 @@ int main()
 	{
 		flags = 0;
 		printf("전송할데이터(종료를원할시exit)\n");
-
+		
+		
 		//scanf("%s", message);
 		fgets(message, 100, stdin);
+		strcat(userInfo, message);
 		
-		if (!strcmp(message, "exit")) break;
+		if (!strcmp(userInfo, "exit")) break;
 
-		dataBuf.len = strlen(message) - 1;
-		dataBuf.buf = message;
+		dataBuf.len = strlen(userInfo) - 1;
+		dataBuf.buf = userInfo;
 
 
 		if (WSASend(hSocket, &dataBuf, 1, (LPDWORD)&sendBytes, 0, &overlapped, NULL) == SOCKET_ERROR)
