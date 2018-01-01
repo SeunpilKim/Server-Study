@@ -1,0 +1,7 @@
+﻿  Chating2.cpp
+Chating2.cpp(22): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\um\winsock2.h(1830): note: 'inet_addr' 선언을 참조하십시오.
+  코드를 생성하고 있습니다.
+  All 6 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  코드를 생성했습니다.
+  ConsoleApplication3.vcxproj -> C:\Users\tjsvl\Desktop\Server-Study\Server\Release\ConsoleApplication3.exe
