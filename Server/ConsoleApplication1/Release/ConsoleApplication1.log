@@ -1,11 +1,1 @@
-﻿  IOCPserver.cpp
-IOCPserver.cpp(42): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-IOCPserver.cpp(61): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
-IOCPserver.cpp(115): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\time.h(505): note: 'localtime' 선언을 참조하십시오.
-IOCPserver.cpp(144): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\stdio.h(1772): note: 'sprintf' 선언을 참조하십시오.
-  코드를 생성하고 있습니다.
-  All 13 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  코드를 생성했습니다.
-  ConsoleApplication1.vcxproj -> C:\Users\tjsvl\Desktop\Server-Study\Server\Release\ConsoleApplication1.exe
+﻿
