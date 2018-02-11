@@ -19,7 +19,7 @@ int main()
 	SOCKADDR_IN recvAddr;
 	memset(&recvAddr, 0, sizeof(recvAddr));
 	recvAddr.sin_family = AF_INET;
-	recvAddr.sin_addr.s_addr = inet_addr("13.125.131.209");
+	recvAddr.sin_addr.s_addr = inet_addr("198.37.24.46");
 	recvAddr.sin_port = htons(2738);
 
 	if (connect(hSocket, (SOCKADDR*)&recvAddr, sizeof(recvAddr)) == SOCKET_ERROR)
