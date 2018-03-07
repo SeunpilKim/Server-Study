@@ -48,7 +48,7 @@ int main(int argc, char** argv)
 	servAddr.sin_family = AF_INET;
 	servAddr.sin_addr.s_addr = htonl(INADDR_ANY);
 	//servAddr.sin_addr.s_addr = inet_addr("127.0.0.2");
-
+	
 	servAddr.sin_port = htons(2738);
 	//서버 바인드, 리슨 대기( 5개 까지 ) 
 	bind(hServSock, (SOCKADDR*)&servAddr, sizeof(servAddr));
@@ -66,7 +66,7 @@ int main(int argc, char** argv)
 		int addrLen = sizeof(clntAddr);
 
 		SOCKET hClntSock = accept(hServSock, (SOCKADDR*)&clntAddr, &addrLen);
-
+		
 		PerHandleData = (LPPER_HANDLE_DATA)malloc(sizeof(PER_HANDLE_DATA));
 		PerHandleData->hClntSock = hClntSock;
 		memcpy(&(PerHandleData->clntAddr), &clntAddr, addrLen);
@@ -90,7 +90,7 @@ unsigned int __stdcall CompletionThread(LPVOID pComPort)
 	HANDLE hCompletionPort = (HANDLE)pComPort;
 	DWORD BytesTransferred;
 	LPPER_HANDLE_DATA PerHandleData;
-	LPPER_IO_DATA PerIoData;
+	
 	DWORD flags;
 
 	//시간 나타낼 변수
@@ -101,7 +101,7 @@ unsigned int __stdcall CompletionThread(LPVOID pComPort)
 
 	while (1) {
 		GetQueuedCompletionStatus(hCompletionPort, &BytesTransferred, (LPDWORD)&PerHandleData, (LPOVERLAPPED*)&PerIoData, INFINITE);
-
+		LPPER_IO_DATA PerIoData;
 		if (BytesTransferred == 0)
 		{
 			closesocket(PerHandleData->hClntSock);
@@ -115,7 +115,7 @@ unsigned int __stdcall CompletionThread(LPVOID pComPort)
 		t = localtime(&timer); // 초 단위의 시간을 분리하여 구조체에 넣기
 		printf("%s   ", timeToString(t));
 		printf("%s\n", PerIoData->wsaBuf.buf);
-	
+		
 		PerIoData->wsaBuf.len = BytesTransferred;
 		WSASend(PerHandleData->hClntSock, &(PerIoData->wsaBuf), 1, NULL, 0, NULL, NULL);
 
@@ -147,4 +147,21 @@ char* timeToString(struct tm *t) {
 	);
 
 	return s;
+}
+
+void	LogOutput(char *lpszFmt, ...)
+{
+	char szOutText[256];
+	va_list Vargs;
+
+	//-----------------------------------------------------------------
+	// 가변인자를 바로 받아 문자열 형식으로 ..
+	//-----------------------------------------------------------------
+	va_start(Vargs, lpszFmt);
+	vsprintf(szOutText, lpszFmt, Vargs);
+	va_end(Vargs);
+	strcat(szOutText, "\n");
+
+	printf(szOutText);
+
 }

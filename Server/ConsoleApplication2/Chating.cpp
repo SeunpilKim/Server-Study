@@ -1,10 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
 #include <winsock2.h>
 
 void ErrorHandling(char *message);
 
 #pragma comment(lib, "ws2_32.lib")
+
+
+char getKey()
+{
+	if (kbhit()) // kbhit()이용해 입력값이 있는지 확인 
+	{
+		return getch();     // 입력값이 getch()로 char를 리턴해줌
+	}
+	return '\0'; // 입력값이 없으면 널 문자 리턴
+}
 
 int main()
 {
@@ -19,7 +30,7 @@ int main()
 	SOCKADDR_IN recvAddr;
 	memset(&recvAddr, 0, sizeof(recvAddr));
 	recvAddr.sin_family = AF_INET;
-	recvAddr.sin_addr.s_addr = inet_addr("198.37.24.46");
+	recvAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 	recvAddr.sin_port = htons(2738);
 
 	if (connect(hSocket, (SOCKADDR*)&recvAddr, sizeof(recvAddr)) == SOCKET_ERROR)
@@ -32,9 +43,8 @@ int main()
 
 	overlapped.hEvent = event;
 
-	WSABUF dataBuf;
-	char message[1024] = { 0, };
-	char userInfo[1031] = { "유저1:", };
+	char key;
+	
 	int sendBytes = 0;
 	int recvBytes = 0;
 	int flags = 0;
@@ -42,40 +52,49 @@ int main()
 	while (true)
 	{
 		flags = 0;
-		printf("전송할데이터(종료를원할시exit)\n");
-		
-		
+		//printf("전송할데이터(종료를원할시exit)\n");
+		printf("키입력(종료를원할시exit)\n");
+
+		WSABUF dataBuf;
+		char message[1024] = { 0, };
+		char userInfo[1031] = { "유저1:", };
+
 		//scanf("%s", message);
-		fgets(message, 100, stdin);
-		strcat(userInfo, message);
-		
+		//fgets(message, 100, stdin);
+		//strcat(userInfo, message);
+
+		key = getKey();
+
+
 		if (!strcmp(userInfo, "exit")) break;
 
-		dataBuf.len = strlen(userInfo) - 1;
-		dataBuf.buf = userInfo;
+
+	if (key != '\0') {
+			dataBuf.len = strlen(userInfo) - 1;
+			dataBuf.buf = &key;
 
 
-		if (WSASend(hSocket, &dataBuf, 1, (LPDWORD)&sendBytes, 0, &overlapped, NULL) == SOCKET_ERROR)
-		{
-			if (WSAGetLastError() != WSA_IO_PENDING)
-				ErrorHandling("WSASend() error");
+			if (WSASend(hSocket, &dataBuf, 1, (LPDWORD)&sendBytes, 0, &overlapped, NULL) == SOCKET_ERROR)
+			{
+				if (WSAGetLastError() != WSA_IO_PENDING)
+					ErrorHandling("WSASend() error");
+			}
+
+			WSAWaitForMultipleEvents(1, &event, TRUE, WSA_INFINITE, FALSE);
+
+			WSAGetOverlappedResult(hSocket, &overlapped, (LPDWORD)&sendBytes, FALSE, NULL);
+
+			printf("전송된바이트수: %d \n", sendBytes);
+
+			if (WSARecv(hSocket, &dataBuf, 1, (LPDWORD)&recvBytes, (LPDWORD)&flags, &overlapped, NULL) == SOCKET_ERROR)
+			{
+				if (WSAGetLastError() != WSA_IO_PENDING)
+					ErrorHandling("WSASend() error");
+			}
+
+			printf("Recv[%s]\n", dataBuf.buf);
 		}
-
-		WSAWaitForMultipleEvents(1, &event, TRUE, WSA_INFINITE, FALSE);
-
-		WSAGetOverlappedResult(hSocket, &overlapped, (LPDWORD)&sendBytes, FALSE, NULL);
-
-		printf("전송된바이트수: %d \n", sendBytes);
-
-		if (WSARecv(hSocket, &dataBuf, 1, (LPDWORD)&recvBytes, (LPDWORD)&flags, &overlapped, NULL) == SOCKET_ERROR)
-		{
-			if (WSAGetLastError() != WSA_IO_PENDING)
-				ErrorHandling("WSASend() error");
-		}
-
-		printf("Recv[%s]\n", dataBuf.buf);
 	}
-
 	closesocket(hSocket);
 
 	WSACleanup();
