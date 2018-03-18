@@ -1,0 +1,63 @@
+
+#include <iostream>
+
+using namespace std;
+#pragma once
+
+// 서버 메인 함수.
+//
+/////////////////////////////////////////////////////////////////////
+#ifndef __SERVER_MAIN__
+#define __SERVER_MAIN__
+
+#define BUFSIZE 1024
+
+char* timeToString(struct tm *t);
+
+int SessionID = 0;
+
+typedef struct
+{
+	SOCKET hClntSock;
+	SOCKADDR_IN clntAddr;
+} PER_HANDLE_DATA, *LPPER_HANDLE_DATA;
+
+typedef struct
+{
+	OVERLAPPED overlapped;
+	char buffer[BUFSIZE];
+	WSABUF wsaBuf;
+} PER_IO_DATA, *LPPER_IO_DATA;
+
+#pragma comment(lib, "ws2_32.lib")
+
+/////////////////////////////////////////////////////////////////////
+// 서버초기화.
+//
+// Parameters: 없음.
+// Return: 없음.
+/////////////////////////////////////////////////////////////////////
+BOOL InitServer(void);
+
+/////////////////////////////////////////////////////////////////////
+// 서버삭제.
+//
+// Parameters: 없음.
+// Return: 없음.
+/////////////////////////////////////////////////////////////////////
+BOOL ReleaseServer(void);
+
+/////////////////////////////////////////////////////////////////////
+// 메인 함수.
+//
+// Parameters: 없음.
+// Return: 없음.
+/////////////////////////////////////////////////////////////////////
+void main(void);
+
+
+void ErrorHandling(char *message);
+
+unsigned int __stdcall CompletionThread(LPVOID pComPort);
+
+#endif

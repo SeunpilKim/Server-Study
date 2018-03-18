@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.vcxproj", "{EC8CCF50-BD8E-44C8-BBC7-31E634CEE396}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleApplication2", "ConsoleApplication2\ConsoleApplication2.vcxproj", "{1C2BEE4B-E652-485C-A371-5814F8459B22}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleApplication3", "ConsoleApplication3\ConsoleApplication3.vcxproj", "{4585E005-48CF-4D92-8D04-ECE8FE5CB802}"
 EndProject
 Global
@@ -25,14 +23,6 @@ Global
 		{EC8CCF50-BD8E-44C8-BBC7-31E634CEE396}.Release|x64.Build.0 = Release|x64
 		{EC8CCF50-BD8E-44C8-BBC7-31E634CEE396}.Release|x86.ActiveCfg = Release|Win32
 		{EC8CCF50-BD8E-44C8-BBC7-31E634CEE396}.Release|x86.Build.0 = Release|Win32
-		{1C2BEE4B-E652-485C-A371-5814F8459B22}.Debug|x64.ActiveCfg = Debug|x64
-		{1C2BEE4B-E652-485C-A371-5814F8459B22}.Debug|x64.Build.0 = Debug|x64
-		{1C2BEE4B-E652-485C-A371-5814F8459B22}.Debug|x86.ActiveCfg = Debug|Win32
-		{1C2BEE4B-E652-485C-A371-5814F8459B22}.Debug|x86.Build.0 = Debug|Win32
-		{1C2BEE4B-E652-485C-A371-5814F8459B22}.Release|x64.ActiveCfg = Release|x64
-		{1C2BEE4B-E652-485C-A371-5814F8459B22}.Release|x64.Build.0 = Release|x64
-		{1C2BEE4B-E652-485C-A371-5814F8459B22}.Release|x86.ActiveCfg = Release|Win32
-		{1C2BEE4B-E652-485C-A371-5814F8459B22}.Release|x86.Build.0 = Release|Win32
 		{4585E005-48CF-4D92-8D04-ECE8FE5CB802}.Debug|x64.ActiveCfg = Debug|x64
 		{4585E005-48CF-4D92-8D04-ECE8FE5CB802}.Debug|x64.Build.0 = Debug|x64
 		{4585E005-48CF-4D92-8D04-ECE8FE5CB802}.Debug|x86.ActiveCfg = Debug|Win32

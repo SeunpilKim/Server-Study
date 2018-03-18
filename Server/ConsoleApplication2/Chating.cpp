@@ -1,59 +1,59 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <conio.h>
-#include <winsock2.h>
 
-void ErrorHandling(char *message);
-
-#pragma comment(lib, "ws2_32.lib")
+#include "stdio.h"
+#include "conio.h"
+#include "winsock2.h"
 
 
-char getKey()
+
+
+//에러출력함수
+void ErrorHandling(char *message)
 {
-	if (kbhit()) // kbhit()이용해 입력값이 있는지 확인 
-	{
-		return getch();     // 입력값이 getch()로 char를 리턴해줌
-	}
-	return '\0'; // 입력값이 없으면 널 문자 리턴
+	fputs(message, stderr);
+	fputc('\n', stderr);
+
+	exit(1);
 }
 
 int main()
 {
 	WSADATA wsaData;
+	SOCKET hSocket = WSASocket(PF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED);
+	SOCKADDR_IN recvAddr;
+	WSAEVENT event = WSACreateEvent();
+	WSAOVERLAPPED overlapped;
+
+	char key;
+	int flags = 0;
+	int sendBytes = 0;
+	int recvBytes = 0;
+
 	if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
 		ErrorHandling("WSAStartup() error!");
 
-	SOCKET hSocket = WSASocket(PF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED);
 	if (hSocket == INVALID_SOCKET)
 		ErrorHandling("socket() error");
 
-	SOCKADDR_IN recvAddr;
+
 	memset(&recvAddr, 0, sizeof(recvAddr));
 	recvAddr.sin_family = AF_INET;
-	recvAddr.sin_addr.s_addr = inet_addr("13.125.173.158");
+	recvAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 	recvAddr.sin_port = htons(2738);
 
 	if (connect(hSocket, (SOCKADDR*)&recvAddr, sizeof(recvAddr)) == SOCKET_ERROR)
 		ErrorHandling("connect() error!");
 
-	WSAEVENT event = WSACreateEvent();
 
-	WSAOVERLAPPED overlapped;
+
+
 	memset(&overlapped, 0, sizeof(overlapped));
 
 	overlapped.hEvent = event;
 
-	char key;
-	
-	int sendBytes = 0;
-	int recvBytes = 0;
-	int flags = 0;
-
 	while (true)
 	{
 		flags = 0;
-		//printf("전송할데이터(종료를원할시exit)\n");
-		printf("키입력(종료를원할시exit)\n");
+		
 
 		WSABUF dataBuf;
 		char message[1024] = { 0, };
@@ -63,16 +63,16 @@ int main()
 		//fgets(message, 100, stdin);
 		//strcat(userInfo, message);
 
-		key = getKey();
+		
 
 
 		if (!strcmp(userInfo, "exit")) break;
 
 
 	if (key != '\0') {
-			dataBuf.len = strlen(userInfo) - 1;
-			dataBuf.buf = &key;
-
+		
+			dataBuf.len = 1;
+			dataBuf.buf = "W";
 
 			if (WSASend(hSocket, &dataBuf, 1, (LPDWORD)&sendBytes, 0, &overlapped, NULL) == SOCKET_ERROR)
 			{
@@ -84,7 +84,7 @@ int main()
 
 			WSAGetOverlappedResult(hSocket, &overlapped, (LPDWORD)&sendBytes, FALSE, NULL);
 
-			printf("전송된바이트수: %d \n", sendBytes);
+			//printf("전송된바이트수: %d \n", sendBytes);
 
 			if (WSARecv(hSocket, &dataBuf, 1, (LPDWORD)&recvBytes, (LPDWORD)&flags, &overlapped, NULL) == SOCKET_ERROR)
 			{
@@ -95,19 +95,10 @@ int main()
 			printf("Recv[%s]\n", dataBuf.buf);
 		}
 	}
-	closesocket(hSocket);
-
-	WSACleanup();
+	
 
 	return 0;
 }
 
-void ErrorHandling(char *message)
-{
-	fputs(message, stderr);
-	fputc('\n', stderr);
-
-	exit(1);
-}
 
 

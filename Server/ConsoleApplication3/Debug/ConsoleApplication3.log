@@ -1,5 +1,5 @@
-﻿  Chating2.cpp
-c:\users\tjsvl\desktop\server-study\server\consoleapplication3\chating2.cpp(22): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+﻿  AI.cpp
+c:\users\tjsvl\desktop\server-study\server\consoleapplication3\ai.cpp(22): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
   c:\program files (x86)\windows kits\10\include\10.0.16299.0\um\winsock2.h(1830): note: 'inet_addr' 선언을 참조하십시오.
-  ConsoleApplication3.vcxproj -> C:\Users\tjsvl\Desktop\Server-Study\Server\Debug\ConsoleApplication3.exe
-  ConsoleApplication3.vcxproj -> C:\Users\tjsvl\Desktop\Server-Study\Server\Debug\ConsoleApplication3.pdb (Partial PDB)
+  ConsoleApplication3.vcxproj -> c:\users\tjsvl\documents\visual studio 2017\Projects\Server_Framework\Debug\ConsoleApplication3.exe
+  ConsoleApplication3.vcxproj -> c:\users\tjsvl\documents\visual studio 2017\Projects\Server_Framework\Debug\ConsoleApplication3.pdb (Partial PDB)

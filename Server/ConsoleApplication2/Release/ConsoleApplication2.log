@@ -1,13 +1,18 @@
 ﻿  Chating.cpp
-Chating.cpp(13): warning C4996: 'kbhit': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _kbhit. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\conio.h(458): note: 'kbhit' 선언을 참조하십시오.
-Chating.cpp(15): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\conio.h(452): note: 'getch' 선언을 참조하십시오.
-Chating.cpp(33): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\um\winsock2.h(1830): note: 'inet_addr' 선언을 참조하십시오.
-  코드를 생성하고 있습니다.
-  1 of 7 functions (14.3%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
-  코드를 생성했습니다.
-  ConsoleApplication2.vcxproj -> C:\Users\tjsvl\Desktop\Server-Study\Server\Release\ConsoleApplication2.exe
+Chating.cpp(20): error C2065: 'flags': 선언되지 않은 식별자입니다.
+Chating.cpp(23): error C2065: 'WSABUF': 선언되지 않은 식별자입니다.
+Chating.cpp(23): error C2146: 구문 오류: ';'이(가) 'dataBuf' 식별자 앞에 없습니다.
+Chating.cpp(23): error C2065: 'dataBuf': 선언되지 않은 식별자입니다.
+Chating.cpp(31): error C3861: 'getKey': 식별자를 찾을 수 없습니다.
+Chating.cpp(34): error C3861: 'strcmp': 식별자를 찾을 수 없습니다.
+Chating.cpp(39): error C2065: 'dataBuf': 선언되지 않은 식별자입니다.
+Chating.cpp(39): error C2228: '.len' 왼쪽에는 클래스/구조체/공용 구조체가 있어야 합니다.
+  Chating.cpp(39): note: 'unknown-type' 형식입니다.
+Chating.cpp(39): error C3861: 'strlen': 식별자를 찾을 수 없습니다.
+Chating.cpp(40): error C2065: 'dataBuf': 선언되지 않은 식별자입니다.
+Chating.cpp(40): error C2228: '.buf' 왼쪽에는 클래스/구조체/공용 구조체가 있어야 합니다.
+  Chating.cpp(40): note: 'unknown-type' 형식입니다.
+Chating.cpp(44): error C2065: 'dataBuf': 선언되지 않은 식별자입니다.
+Chating.cpp(44): error C2228: '.buf' 왼쪽에는 클래스/구조체/공용 구조체가 있어야 합니다.
+  Chating.cpp(44): note: 'unknown-type' 형식입니다.
+Chating.cpp(44): error C3861: 'printf': 식별자를 찾을 수 없습니다.

@@ -96,12 +96,13 @@ unsigned int __stdcall CompletionThread(LPVOID pComPort)
 	//시간 나타낼 변수
 	struct tm *t;
 	time_t timer;
-
+	LPPER_IO_DATA PerIoData;
 	
 
 	while (1) {
-		GetQueuedCompletionStatus(hCompletionPort, &BytesTransferred, (LPDWORD)&PerHandleData, (LPOVERLAPPED*)&PerIoData, INFINITE);
-		LPPER_IO_DATA PerIoData;
+		
+		GetQueuedCompletionStatus(hCompletionPort, &BytesTransferred, (PULONG_PTR)&PerHandleData, (LPOVERLAPPED*)&PerIoData, INFINITE);
+		
 		if (BytesTransferred == 0)
 		{
 			closesocket(PerHandleData->hClntSock);
@@ -117,9 +118,10 @@ unsigned int __stdcall CompletionThread(LPVOID pComPort)
 		printf("%s\n", PerIoData->wsaBuf.buf);
 		
 		PerIoData->wsaBuf.len = BytesTransferred;
-		WSASend(PerHandleData->hClntSock, &(PerIoData->wsaBuf), 1, NULL, 0, NULL, NULL);
-
 		memset(&(PerIoData->overlapped), 0, sizeof(OVERLAPPED));
+		WSASend(PerHandleData->hClntSock, &(PerIoData->wsaBuf), 1, NULL, 0,NULL, NULL);
+
+		
 		PerIoData->wsaBuf.len = BUFSIZE;
 		PerIoData->wsaBuf.buf = PerIoData->buffer;
 
